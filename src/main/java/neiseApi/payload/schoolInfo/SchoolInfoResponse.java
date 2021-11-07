@@ -1,4 +1,4 @@
-package neiseApi.payload;
+package neiseApi.payload.schoolInfo;
 
 import com.google.gson.annotations.SerializedName;
 
