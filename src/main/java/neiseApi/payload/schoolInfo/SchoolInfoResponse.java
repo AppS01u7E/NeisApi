@@ -1,4 +1,4 @@
-package payload;
+package neiseApi.payload;
 
 import com.google.gson.annotations.SerializedName;
 

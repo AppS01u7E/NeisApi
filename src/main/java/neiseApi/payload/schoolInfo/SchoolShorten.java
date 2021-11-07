@@ -1,4 +1,4 @@
-package payload;
+package neiseApi.payload;
 
 
 public class SchoolShorten {
