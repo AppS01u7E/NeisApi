@@ -1,3 +1,5 @@
+package main;
+
 import payload.SchoolShorten;
 
 import java.util.List;
