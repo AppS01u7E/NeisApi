@@ -4,7 +4,7 @@ plugins {
 
 }
 
-
+apply plugin: 'java'
 
 group 'org.jinwoo794533'
 version '1.0.0'
@@ -12,13 +12,13 @@ version '1.0.0'
 
 repositories {
     mavenCentral()
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     implementation 'com.google.code.gson:gson:2.8.7'
-    implementation 'org.projectlombok:lombok:1.18.16'
 }
 
 test {
