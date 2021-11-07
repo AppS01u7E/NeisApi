@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 apply plugin: 'java'
@@ -23,4 +24,15 @@ test {
     useJUnitPlatform()
 }
 
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'org.jinwoo794533'
+            artifactId = 'neiseapi'
+            version = '0.0.05'
+
+            from components.java
+        }
+    }
+}
 
