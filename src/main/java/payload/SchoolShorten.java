@@ -1,7 +1,7 @@
 package payload;
 
 
-public class School {
+public class SchoolShorten {
 
     private final String code;
 
@@ -19,7 +19,7 @@ public class School {
 
     private final String kind;
 
-    public School(String code, String name, String areaCode, String addressCode, String homePage, String telephone, String type, String kind) {
+    public SchoolShorten(String code, String name, String areaCode, String addressCode, String homePage, String telephone, String type, String kind) {
         this.code = code;
         this.name = name;
         this.areaCode = areaCode;

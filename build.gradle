@@ -25,22 +25,3 @@ test {
     useJUnitPlatform()
 }
 
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId = 'org.jinwoo794533'
-            artifactId = 'neiseApi-1.0.0'
-            version = '1.0.0'
-
-
-            artifact 'neiseApi-1.0.0.jar'
-        }
-    }
-    repositories {
-        maven {
-        }
-    }
-}
-
-

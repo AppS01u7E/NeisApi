@@ -1,5 +1,5 @@
 import com.google.gson.Gson;
-import payload.School;
+import payload.SchoolShorten;
 import payload.SchoolInfoResponse;
 
 import java.util.ArrayList;
@@ -35,22 +35,19 @@ public class NeisApi {
     private String serviceKey;
 
     /**
-     * 생성자
-     */
-    public NeisApi(Builder builder){
-        this.meal = builder.meal;
-        this.schoolInfo = builder.schoolInfo;
-        this.schedule = builder.schedule;
-    }
-
-
-    /**
-     * @param key serviceKey
+     *
+     * @param serviceKey neisApi 키
+     *
      */
 
-    public void setServiceKey(String key){
-
-        this.serviceKey = key;
+    public NeisApi(String serviceKey) {
+        // disable SNI. Java 1.7 bug
+        System.setProperty("jsse.enableSNIExtension", "false");
+        this.serviceKey = serviceKey;
+        this.schoolInfo = SCHOOLINFO + "?KEY=" + this.serviceKey + "&Type=json";
+        this.schedule = SCHEDULE + "?KEY=" + this.serviceKey + "&Type=json";
+        this.meal = MEAL + "?KEY=" + this.serviceKey + "&Type=json";
+        this.classInfo = CLASSINFO + "?KEY=" + this.serviceKey + "&Type=json";
     }
 
     /**
@@ -60,56 +57,16 @@ public class NeisApi {
      */
 
 
-    public List<School> getSchool(String schoolName){
-        ArrayList<School> arrayList = new ArrayList<>();
+    public List<SchoolShorten> getSchool(String schoolName){
+        ArrayList<SchoolShorten> arrayList = new ArrayList<>();
 
         Gson gson = new Gson();
 
-        String url = this.schoolInfo + "&KEY=" + serviceKey;
-        gson.fromJson(url, SchoolInfoResponse.class).getSchoolInfo().row.stream().map(
-                row -> arrayList.add(new School(row.sD_SCHUL_CODE, row.sCHUL_NM, row.aTPT_OFCDC_SC_CODE, row.oRG_RDNZC, row.hMPG_ADRES,
+        gson.fromJson(this.schoolInfo + "&SCHUL_NM=" + schoolName, SchoolInfoResponse.class).getSchoolInfo().row.stream().map(
+                row -> arrayList.add(new SchoolShorten(row.sD_SCHUL_CODE, row.sCHUL_NM, row.aTPT_OFCDC_SC_CODE, row.oRG_RDNZC, row.hMPG_ADRES,
                         row.oRG_TELNO, row.hS_SC_NM, row.sCHUL_KND_SC_NM)
         ));
         return arrayList;
-    }
-
-    public static class Builder {
-
-        private String meal = MEAL + "?Type=Json";
-        private String schoolInfo = SCHOOLINFO + "?Type=Json";
-        private String schedule = SCHEDULE + "?Type=Json";
-
-        /**
-         * @param meal The Meal host setter.
-         * @return A {@link Builder}
-         */
-        public Builder setMeal(String meal) {
-            this.meal = meal;
-            return this;
-        }
-
-        /**
-         * @param schoolInfo The School host setter.
-         * @return A {@link Builder}
-         */
-        public Builder setSchoolInfo(String schoolInfo) {
-            this.schoolInfo = schoolInfo;
-            return this;
-        }
-
-        /**
-         * @param schedule The Menu pattern setter.
-         * @return A {@link Builder}
-         */
-        public Builder setSchedule(String schedule) {
-            this.schedule = schedule;
-            return this;
-        }
-
-        public NeisApi build() {
-            return new NeisApi(this);
-        }
-
     }
 
 }
