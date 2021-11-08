@@ -128,7 +128,7 @@ public class SchoolInfoResponse {
 
 
     public List<SchoolInfo.Row> getSchoolInfo(){
-        return this.schoolInfo.get(0).getRow();
+        return this.schoolInfo.get(1).getRow();
     }
 }
 
