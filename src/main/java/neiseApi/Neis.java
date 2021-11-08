@@ -128,7 +128,7 @@ public class Neis {
         else if (schoolShorten.getKind().equals(SchoolType.MIDDLE)) sche = this.middleSche;
         else sche = this.highSche;
 
-        URL url = new URL(sche + "&ATPT_OFCDC_SC_CODE=" + Integer.valueOf(schoolShorten.getAreaCode()) + "&SD_SCHUL_CODE=" + Integer.valueOf(schoolShorten.getCode())
+        URL url = new URL(sche + "&ATPT_OFCDC_SC_CODE=" + (schoolShorten.getAreaCode()) + "&SD_SCHUL_CODE=" + Integer.valueOf(schoolShorten.getCode())
                 + "&AY=" + year + "&ALL_TI_YMD=" +seperateDay + "&GRADE=" + grade + "&CLASS_NM=" +classNum);
         System.out.println(url);
 
@@ -141,10 +141,6 @@ public class Neis {
 
         return arrayList;
     }
-
-
-
-
 
 
 }
