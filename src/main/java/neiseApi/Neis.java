@@ -7,6 +7,7 @@ import neiseApi.payload.sche.SchoolType;
 import neiseApi.payload.schoolInfo.SchoolShorten;
 import neiseApi.payload.schoolInfo.SchoolInfoResponse;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +72,7 @@ public class Neis {
      * @throws NullPointerException it can be caused by serviceKey Error, or just theres no records.
      */
     public List<SchoolShorten> getSchool(String schoolName){
-        String url = this.schoolInfo + "&SCHUL_NM=" + schoolName;
+        String url = this.schoolInfo + "&SCHUL_NM=" + URLEncoder.encode(schoolName);
         System.out.println(url);
         ArrayList<SchoolShorten> arrayList = new ArrayList<>();
         Gson gson = new Gson();
@@ -92,7 +93,7 @@ public class Neis {
      */
 
     public SchoolShorten getOneSchoolByCode(String schoolCode){
-        String url = this.schoolInfo + "&SD_SCHUL_CODE=" + schoolCode;
+        String url = this.schoolInfo + "&SD_SCHUL_CODE=" + Integer.valueOf(schoolCode);
         System.out.println(url);
         ArrayList<SchoolShorten> arrayList = new ArrayList<>();
         Gson gson = new Gson();
@@ -124,7 +125,7 @@ public class Neis {
         else if (type.equals(SchoolType.MIDDLE)) url = this.middleSche;
         else url = this.highSche;
 
-        url = url + "&ATPT_OFCDC_SC_CODE=" + areaCode + "&SD_SCHUL_CODE=" + schoolCode
+        url = url + "&ATPT_OFCDC_SC_CODE=" + Integer.valueOf(areaCode) + "&SD_SCHUL_CODE=" + Integer.valueOf(schoolCode)
                 + "&AY=" + year + "&ALL_TI_YMD=" +seperateDay + "&GRADE=" + grade + "&CLASS_NM=" +classNum;
 
         System.out.println(url);
