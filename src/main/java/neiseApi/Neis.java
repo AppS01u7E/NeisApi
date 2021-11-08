@@ -98,7 +98,7 @@ public class Neis {
      */
 
     public SchoolShorten getOneSchoolByCode(String schoolCode) throws IOException{
-        String url = this.schoolInfo + "&SD_SCHUL_CODE=" + Integer.valueOf(schoolCode);
+        URL url = new URL(this.schoolInfo + "&SD_SCHUL_CODE=" + Integer.valueOf(schoolCode));
         System.out.println(url);
         ArrayList<SchoolShorten> arrayList = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
@@ -123,14 +123,13 @@ public class Neis {
 
     public List<ScheShorten> getSchedule(SchoolShorten schoolShorten, int year, long seperateDay, int grade, int classNum) throws IOException{
         ArrayList arrayList = new ArrayList();
-        URL url;
-        if (schoolShorten.getKind().equals(SchoolType.ELEMENT)) url = new URL(this.elementSche);
-        else if (schoolShorten.getKind().equals(SchoolType.MIDDLE)) url = new URL(this.middleSche);
-        else url = new URL(this.highSche);
+        String sche;
+        if (schoolShorten.getKind().equals(SchoolType.ELEMENT)) sche = this.elementSche;
+        else if (schoolShorten.getKind().equals(SchoolType.MIDDLE)) sche = this.middleSche;
+        else sche = this.highSche;
 
-        url = new URL(url + "&ATPT_OFCDC_SC_CODE=" + Integer.valueOf(schoolShorten.getAreaCode()) + "&SD_SCHUL_CODE=" + Integer.valueOf(schoolShorten.getCode())
+        URL url = new URL(sche + "&ATPT_OFCDC_SC_CODE=" + Integer.valueOf(schoolShorten.getAreaCode()) + "&SD_SCHUL_CODE=" + Integer.valueOf(schoolShorten.getCode())
                 + "&AY=" + year + "&ALL_TI_YMD=" +seperateDay + "&GRADE=" + grade + "&CLASS_NM=" +classNum);
-
         System.out.println(url);
 
         ObjectMapper mapper = new ObjectMapper();
