@@ -57,12 +57,12 @@ public class ScheResponse {
             @JsonProperty("SEM")
             public String sEM;
 
-            public String getaLL_TI_YMD() {
+            public int getaLL_TI_YMD() {
                 return aLL_TI_YMD;
             }
 
             @JsonProperty("ALL_TI_YMD")
-            public String aLL_TI_YMD;
+            public int aLL_TI_YMD;
             @JsonProperty("DGHT_CRSE_SC_NM")
             public String dGHT_CRSE_SC_NM;
             @JsonProperty("ORD_SC_NM")
@@ -70,28 +70,29 @@ public class ScheResponse {
             @JsonProperty("DDDEP_NM")
             public String dDDEP_NM;
 
-            public String getgRADE() {
+            public int getgRADE() {
                 return gRADE;
             }
 
             @JsonProperty("GRADE")
-            public String gRADE;
+            public int gRADE;
             @JsonProperty("CLRM_NM")
             public String cLRM_NM;
 
-            public String getcLASS_NM() {
+            public int getcLASS_NM() {
                 return cLASS_NM;
             }
 
             @JsonProperty("CLASS_NM")
-            public String cLASS_NM;
+            public int cLASS_NM;
 
-            public String getpERIO() {
+
+            public int getpERIO() {
                 return pERIO;
             }
 
             @JsonProperty("PERIO")
-            public String pERIO;
+            public int pERIO;
 
             public String getiTRT_CNTNT() {
                 return iTRT_CNTNT;
