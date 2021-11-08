@@ -27,9 +27,9 @@ test {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId = 'org.jinwoo794533' as Publication
-            artifactId = 'neiseapi' as Publication
-
+            groupId = 'com.github.AppS01u7E' as Publication
+            artifactId = 'NeisApi' as Publication
+            version = '0.02.10' as Publication
             from components.java
         }
     }
