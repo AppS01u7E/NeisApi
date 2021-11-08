@@ -5,7 +5,7 @@ import neiseApi.payload.sche.SchoolType;
 
 public class SchoolShorten {
 
-    private final String coxde;
+    private final String code;
 
     private final String name;
 
