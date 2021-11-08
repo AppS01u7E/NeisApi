@@ -24,7 +24,6 @@ import java.util.List;
  *     - 저작권 MIT
  */
 
-
 public class Neis {
 
     /** baseUrls **/
@@ -73,6 +72,7 @@ public class Neis {
      */
     public List<SchoolShorten> getSchool(String schoolName){
         String url = this.schoolInfo + "&SCHUL_NM=" + schoolName;
+        System.out.println(url);
         ArrayList<SchoolShorten> arrayList = new ArrayList<>();
         Gson gson = new Gson();
         List<SchoolInfoResponse.SchoolInfo.Row> rows = gson.fromJson(url, SchoolInfoResponse.class).getSchoolInfo().row;
@@ -93,6 +93,7 @@ public class Neis {
 
     public SchoolShorten getOneSchoolByCode(String schoolCode){
         String url = this.schoolInfo + "&SD_SCHUL_CODE=" + schoolCode;
+        System.out.println(url);
         ArrayList<SchoolShorten> arrayList = new ArrayList<>();
         Gson gson = new Gson();
         List<SchoolInfoResponse.SchoolInfo.Row> rows = gson.fromJson(url, SchoolInfoResponse.class).getSchoolInfo().row;
@@ -126,6 +127,8 @@ public class Neis {
         url = url + "&ATPT_OFCDC_SC_CODE=" + areaCode + "&SD_SCHUL_CODE=" + schoolCode
                 + "&AY=" + year + "&ALL_TI_YMD=" +seperateDay + "&GRADE=" + grade + "&CLASS_NM=" +classNum;
 
+        System.out.println(url);
+
         Gson gson = new Gson();
         List<ScheResponse.HisTimetable> timetable = gson.fromJson(url, ScheResponse.class).hisTimetable;
         timetable.get(1).row.stream().map(
@@ -135,9 +138,6 @@ public class Neis {
 
         return arrayList;
     }
-
-    
-
 
 
 
