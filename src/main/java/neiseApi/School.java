@@ -7,6 +7,7 @@ import neiseApi.payload.schoolInfo.ReturnType;
 import neiseApi.payload.schoolInfo.SchoolInfoResponse;
 import neiseApi.payload.schoolInfo.SchoolShorten;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,8 +26,12 @@ public class School extends Neis {
      * @param schoolName - 검색할 문장 ex) 대덕 or 대덕소프트 or 대덕소프트웨어마이스터고등학교
      * @return DetailSchool List (초, 중, 고 모두 포함)
      */
-    public List<SchoolShorten> getSchoolDetailInfo(String schoolName){
-        return getSchool(schoolName);
+    public List<SchoolShorten> getSchoolDetailInfo(String schoolName) throws IOException {
+        try{
+            return getSchool(schoolName);
+        } catch (IOException e){
+            throw new IOException();
+        }
     }
 
 
@@ -40,7 +45,7 @@ public class School extends Neis {
      * @return
      */
 
-    public List<List<ScheShorten>> getSchoolSchedule(String schoolCode, int grade, int classNum , Long startDate, Long endDate){
+    public List<List<ScheShorten>> getSchoolSchedule(String schoolCode, int grade, int classNum , Long startDate, Long endDate) throws IOException{
         if ((startDate - endDate) > 0) throw new InvaildDateException();
         List<List<ScheShorten>> scheduleList = new ArrayList<>(new ArrayList<>());
         SchoolShorten schoolShorten = getOneSchoolByCode(schoolCode);

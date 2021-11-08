@@ -1,13 +1,15 @@
 package neiseApi;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import neiseApi.payload.sche.ScheResponse;
 import neiseApi.payload.sche.ScheShorten;
 import neiseApi.payload.sche.SchoolType;
 import neiseApi.payload.schoolInfo.SchoolShorten;
 import neiseApi.payload.schoolInfo.SchoolInfoResponse;
 
+import java.io.IOException;
 import java.net.URLEncoder;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,12 +73,15 @@ public class Neis {
      * @return List of SchoolShorten
      * @throws NullPointerException it can be caused by serviceKey Error, or just theres no records.
      */
-    public List<SchoolShorten> getSchool(String schoolName){
+    public List<SchoolShorten> getSchool(String schoolName) throws IOException{
         String url = this.schoolInfo + "&SCHUL_NM=" + URLEncoder.encode(schoolName);
         System.out.println(url);
         ArrayList<SchoolShorten> arrayList = new ArrayList<>();
-        Gson gson = new Gson();
-        List<SchoolInfoResponse.SchoolInfo.Row> rows = gson.fromJson(url, SchoolInfoResponse.class).getSchoolInfo().row;
+        ObjectMapper mapper = new ObjectMapper();
+
+        List<SchoolInfoResponse.SchoolInfo.Row> rows = mapper.readValue(url, SchoolInfoResponse.class).getSchoolInfo().row;
+
+
         if (rows.isEmpty()) throw new NullPointerException();
         rows.stream().map(
                 row -> arrayList.add(new SchoolShorten(row.sD_SCHUL_CODE, row.sCHUL_NM, row.aTPT_OFCDC_SC_CODE, row.oRG_RDNZC, row.hMPG_ADRES,
@@ -92,12 +97,12 @@ public class Neis {
      * @return 학교 하나의 정보만 반환함
      */
 
-    public SchoolShorten getOneSchoolByCode(String schoolCode){
+    public SchoolShorten getOneSchoolByCode(String schoolCode) throws IOException{
         String url = this.schoolInfo + "&SD_SCHUL_CODE=" + Integer.valueOf(schoolCode);
         System.out.println(url);
         ArrayList<SchoolShorten> arrayList = new ArrayList<>();
-        Gson gson = new Gson();
-        List<SchoolInfoResponse.SchoolInfo.Row> rows = gson.fromJson(url, SchoolInfoResponse.class).getSchoolInfo().row;
+        ObjectMapper mapper = new ObjectMapper();
+        List<SchoolInfoResponse.SchoolInfo.Row> rows = mapper.readValue(url, SchoolInfoResponse.class).getSchoolInfo().row;
         if (rows.isEmpty()) throw new NullPointerException();
         rows.stream().map(
                 row -> arrayList.add(new SchoolShorten(row.sD_SCHUL_CODE, row.sCHUL_NM, row.aTPT_OFCDC_SC_CODE, row.oRG_RDNZC, row.hMPG_ADRES,
@@ -118,7 +123,7 @@ public class Neis {
      * @return sepreateDay 당일 시간표 정보
      */
 
-    public List<ScheShorten> getSchedule(SchoolType type, String areaCode, String schoolCode, Long year, long seperateDay, int grade, int classNum){
+    public List<ScheShorten> getSchedule(SchoolType type, String areaCode, String schoolCode, Long year, long seperateDay, int grade, int classNum) throws IOException{
         ArrayList arrayList = new ArrayList();
         String url;
         if (type.equals(SchoolType.ELEMENT)) url = this.elementSche;
@@ -130,8 +135,8 @@ public class Neis {
 
         System.out.println(url);
 
-        Gson gson = new Gson();
-        List<ScheResponse.HisTimetable> timetable = gson.fromJson(url, ScheResponse.class).hisTimetable;
+        ObjectMapper mapper = new ObjectMapper();
+        List<ScheResponse.HisTimetable> timetable = mapper.readValue(url, ScheResponse.class).hisTimetable;
         timetable.get(1).row.stream().map(
                 row -> arrayList.add(new ScheShorten(timetable.get(0).head.get(0).list_total_count,
                         row.aLL_TI_YMD, row.gRADE, row.cLASS_NM, row.pERIO, row.iTRT_CNTNT))
