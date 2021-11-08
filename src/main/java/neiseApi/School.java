@@ -64,11 +64,11 @@ public class School extends Neis {
      * @return
      */
 
-    public List<List<ScheShorten>> getSchoolSchedule(String schoolCode, int grade, int classNum , Long startDate, Long endDate) throws IOException{
+    public List<List<ScheShorten>> getSchoolSchedule(String schoolCode, int grade, int classNum , int startDate, int endDate) throws IOException{
         if ((startDate - endDate) > 0) throw new InvaildDateException();
         List<List<ScheShorten>> scheduleList = new ArrayList<>(new ArrayList<>());
         SchoolShorten schoolShorten = getOneSchoolByCode(schoolCode);
-        for (Long i = startDate; startDate <= endDate; startDate++) {
+        for (int i = startDate; startDate <= endDate; startDate++) {
             scheduleList.add(getSchedule(schoolShorten ,
                     i/10000, i, grade, classNum));
         }
@@ -83,11 +83,11 @@ public class School extends Neis {
      * @return List of List of ScheShorten
      * @throws IOException
      */
-   public List<List<ScheShorten>> getSchoolSchedule(int grade, int classNum , Long startDate, Long endDate) throws IOException{
+   public List<List<ScheShorten>> getSchoolSchedule(int grade, int classNum , int startDate, int endDate) throws IOException{
         if ((startDate - endDate) > 0) throw new InvaildDateException();
         List<List<ScheShorten>> scheduleList = new ArrayList<>(new ArrayList<>());
 
-        for (Long i = startDate; startDate <= endDate; startDate++) {
+        for (int i = startDate; startDate <= endDate; startDate++) {
             scheduleList.add(getSchedule(this.schoolShorten,
                     i/10000, i, grade, classNum));
         }

@@ -121,15 +121,15 @@ public class Neis {
      * @return sepreateDay 당일 시간표 정보
      */
 
-    public List<ScheShorten> getSchedule(SchoolShorten schoolShorten, Long year, long seperateDay, int grade, int classNum) throws IOException{
+    public List<ScheShorten> getSchedule(SchoolShorten schoolShorten, int year, long seperateDay, int grade, int classNum) throws IOException{
         ArrayList arrayList = new ArrayList();
-        String url;
-        if (schoolShorten.getKind().equals(SchoolType.ELEMENT)) url = this.elementSche;
-        else if (schoolShorten.getKind().equals(SchoolType.MIDDLE)) url = this.middleSche;
-        else url = this.highSche;
+        URL url;
+        if (schoolShorten.getKind().equals(SchoolType.ELEMENT)) url = new URL(this.elementSche);
+        else if (schoolShorten.getKind().equals(SchoolType.MIDDLE)) url = new URL(this.middleSche);
+        else url = new URL(this.highSche);
 
-        url = url + "&ATPT_OFCDC_SC_CODE=" + Integer.valueOf(schoolShorten.getAreaCode()) + "&SD_SCHUL_CODE=" + Integer.valueOf(schoolShorten.getCode())
-                + "&AY=" + year + "&ALL_TI_YMD=" +seperateDay + "&GRADE=" + grade + "&CLASS_NM=" +classNum;
+        url = new URL(url + "&ATPT_OFCDC_SC_CODE=" + Integer.valueOf(schoolShorten.getAreaCode()) + "&SD_SCHUL_CODE=" + Integer.valueOf(schoolShorten.getCode())
+                + "&AY=" + year + "&ALL_TI_YMD=" +seperateDay + "&GRADE=" + grade + "&CLASS_NM=" +classNum);
 
         System.out.println(url);
 
