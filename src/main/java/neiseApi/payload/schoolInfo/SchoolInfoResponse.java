@@ -11,6 +11,11 @@ public class SchoolInfoResponse {
 
     public class SchoolInfo{
         public List<Head> head;
+
+        public List<Row> getRow() {
+            return row;
+        }
+
         public List<Row> row;
 
         public class Head{
@@ -27,16 +32,35 @@ public class SchoolInfoResponse {
         }
 
         public class Row{
+            public String getaTPT_OFCDC_SC_CODE() {
+                return aTPT_OFCDC_SC_CODE;
+            }
+
             @JsonProperty("ATPT_OFCDC_SC_CODE")
             public String aTPT_OFCDC_SC_CODE;
             @JsonProperty("ATPT_OFCDC_SC_NM")
             public String aTPT_OFCDC_SC_NM;
+
+            public String getsD_SCHUL_CODE() {
+                return sD_SCHUL_CODE;
+            }
+
             @JsonProperty("SD_SCHUL_CODE")
             public String sD_SCHUL_CODE;
+
+            public String getsCHUL_NM() {
+                return sCHUL_NM;
+            }
+
             @JsonProperty("SCHUL_NM")
             public String sCHUL_NM;
             @JsonProperty("ENG_SCHUL_NM")
             public String eNG_SCHUL_NM;
+
+            public String getsCHUL_KND_SC_NM() {
+                return sCHUL_KND_SC_NM;
+            }
+
             @JsonProperty("SCHUL_KND_SC_NM")
             public String sCHUL_KND_SC_NM;
             @JsonProperty("LCTN_SC_NM")
@@ -45,20 +69,40 @@ public class SchoolInfoResponse {
             public String jU_ORG_NM;
             @JsonProperty("FOND_SC_NM")
             public String fOND_SC_NM;
+
+            public String getoRG_RDNZC() {
+                return oRG_RDNZC;
+            }
+
             @JsonProperty("ORG_RDNZC")
             public String oRG_RDNZC;
             @JsonProperty("ORG_RDNMA")
             public String oRG_RDNMA;
             @JsonProperty("ORG_RDNDA")
             public String oRG_RDNDA;
+
+            public String getoRG_TELNO() {
+                return oRG_TELNO;
+            }
+
             @JsonProperty("ORG_TELNO")
             public String oRG_TELNO;
+
+            public String gethMPG_ADRES() {
+                return hMPG_ADRES;
+            }
+
             @JsonProperty("HMPG_ADRES")
             public String hMPG_ADRES;
             @JsonProperty("COEDU_SC_NM")
             public String cOEDU_SC_NM;
             @JsonProperty("ORG_FAXNO")
             public String oRG_FAXNO;
+
+            public String gethS_SC_NM() {
+                return hS_SC_NM;
+            }
+
             @JsonProperty("HS_SC_NM")
             public String hS_SC_NM;
             @JsonProperty("INDST_SPECL_CCCCL_EXST_YN")
@@ -83,8 +127,8 @@ public class SchoolInfoResponse {
 
 
 
-    public SchoolInfo getSchoolInfo(){
-        return this.schoolInfo.get(1);
+    public List<SchoolInfo.Row> getSchoolInfo(){
+        return this.schoolInfo.get(0).getRow();
     }
 }
 
