@@ -8,6 +8,7 @@ import neiseApi.payload.schoolInfo.SchoolShorten;
 import neiseApi.payload.schoolInfo.SchoolInfoResponse;
 
 import java.io.IOException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class Neis {
 
         System.setProperty("jsse.enableSNIExtension", "false");
         this.serviceKey = serviceKey;
-        this.schoolInfo = SCHOOLINFO + "?KEY=" + this.serviceKey + "&Type=json&pIndex=1&pSize=100";
+        this.schoolInfo = SCHOOLINFO + ("?KEY=") + (this.serviceKey) + ("&Type=json&pIndex=1&pSize=100");
         this.highSche = HIGHSCHE + "?KEY=" + this.serviceKey + "&Type=json&pIndex=1&pSize=100";
         this.middleSche = MIDDLESCHE + "?KEY=" + this.serviceKey + "&Type=json&pIndex=1&pSize=100";
         this.elementSche = ELEMENTSCHE + "?KEY=" + this.serviceKey + "&Type=json&pIndex=1&pSize=100";
@@ -74,7 +75,7 @@ public class Neis {
      * @throws NullPointerException it can be caused by serviceKey Error, or just theres no records.
      */
     public List<SchoolShorten> getSchool(String schoolName) throws IOException{
-        String url = this.schoolInfo + "&SCHUL_NM=" + URLEncoder.encode(schoolName);
+        URL url = new URL(this.schoolInfo + "&SCHUL_NM=" + URLEncoder.encode(schoolName));
         System.out.println(url);
         ArrayList<SchoolShorten> arrayList = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
