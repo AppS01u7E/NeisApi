@@ -9,7 +9,7 @@ import java.util.List;
 public class SchoolInfoResponse {
     public List<SchoolInfo> schoolInfo;
 
-    public class SchoolInfo{
+    public static class SchoolInfo{
         public List<Head> head;
 
         public List<Row> getRow() {
@@ -18,12 +18,12 @@ public class SchoolInfoResponse {
 
         public List<Row> row;
 
-        public class Head{
+        public static class Head{
             public int list_total_count;
             @JsonProperty("RESULT")
             public RESULT rESULT;
 
-            public class RESULT{
+            public static class RESULT{
                 @JsonProperty("CODE")
                 public String cODE;
                 @JsonProperty("MESSAGE")
@@ -31,7 +31,7 @@ public class SchoolInfoResponse {
             }
         }
 
-        public class Row{
+        public static class Row{
             public String getaTPT_OFCDC_SC_CODE() {
                 return aTPT_OFCDC_SC_CODE;
             }
