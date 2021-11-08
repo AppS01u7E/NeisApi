@@ -79,7 +79,7 @@ public class Neis {
         ArrayList<SchoolShorten> arrayList = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
 
-        List<SchoolInfoResponse.SchoolInfo.Row> rows = mapper.readValue(url, SchoolInfoResponse.class).getSchoolInfo().row;
+        List<SchoolInfoResponse.SchoolInfo.Row> rows = mapper.readValue((url), SchoolInfoResponse.class).getSchoolInfo().row;
 
 
         if (rows.isEmpty()) throw new NullPointerException();

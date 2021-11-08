@@ -56,10 +56,4 @@ public class School extends Neis {
         return scheduleList;
     }
 
-
-
-
-
-
-
 }
