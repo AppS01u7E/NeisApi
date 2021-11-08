@@ -121,7 +121,7 @@ public class Neis {
      * @return sepreateDay 당일 시간표 정보
      */
 
-    public List<ScheShorten> getSchedule(SchoolShorten schoolShorten, int year, long seperateDay, int grade, int classNum) throws IOException{
+    public List<ScheShorten> getSchedule(SchoolShorten schoolShorten, int year, int seperateDay, int grade, int classNum) throws IOException{
         ArrayList arrayList = new ArrayList();
         String sche;
         if (schoolShorten.getKind().equals(SchoolType.ELEMENT)) sche = this.elementSche;
