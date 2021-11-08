@@ -29,10 +29,8 @@ publishing {
         mavenJava(MavenPublication) {
             groupId = 'org.jinwoo794533' as Publication
             artifactId = 'neiseapi' as Publication
-            version = '0.0.05' as Publication
 
             from components.java
         }
     }
 }
-
