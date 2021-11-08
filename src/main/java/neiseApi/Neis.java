@@ -80,13 +80,11 @@ public class Neis {
         ArrayList<SchoolShorten> arrayList = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
 
-        List<SchoolInfoResponse.SchoolInfo.Row> rows = mapper.readValue((url), SchoolInfoResponse.class).getSchoolInfo().row;
-
-
+        List<SchoolInfoResponse.SchoolInfo.Row> rows = mapper.readValue(url, SchoolInfoResponse.class).getSchoolInfo();
         if (rows.isEmpty()) throw new NullPointerException();
         rows.stream().map(
-                row -> arrayList.add(new SchoolShorten(row.sD_SCHUL_CODE, row.sCHUL_NM, row.aTPT_OFCDC_SC_CODE, row.oRG_RDNZC, row.hMPG_ADRES,
-                        row.oRG_TELNO, row.hS_SC_NM, row.sCHUL_KND_SC_NM)
+                row -> arrayList.add(new SchoolShorten(row.getsD_SCHUL_CODE(), row.getsCHUL_NM(), row.getaTPT_OFCDC_SC_CODE(), row.getoRG_RDNZC(), row.gethMPG_ADRES(),
+                        row.getoRG_TELNO(), row.gethS_SC_NM(), row.getsCHUL_KND_SC_NM())
                 ));
         return arrayList;
     }
@@ -103,7 +101,7 @@ public class Neis {
         System.out.println(url);
         ArrayList<SchoolShorten> arrayList = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
-        List<SchoolInfoResponse.SchoolInfo.Row> rows = mapper.readValue(url, SchoolInfoResponse.class).getSchoolInfo().row;
+        List<SchoolInfoResponse.SchoolInfo.Row> rows = mapper.readValue(url, SchoolInfoResponse.class).getSchoolInfo();
         if (rows.isEmpty()) throw new NullPointerException();
         rows.stream().map(
                 row -> arrayList.add(new SchoolShorten(row.sD_SCHUL_CODE, row.sCHUL_NM, row.aTPT_OFCDC_SC_CODE, row.oRG_RDNZC, row.hMPG_ADRES,
