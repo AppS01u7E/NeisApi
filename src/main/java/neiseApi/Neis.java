@@ -13,6 +13,7 @@ import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -85,7 +86,7 @@ public class Neis {
         rows.stream().map(
                 row -> arrayList.add(new SchoolShorten(row.getsD_SCHUL_CODE(), row.getsCHUL_NM(), row.getaTPT_OFCDC_SC_CODE(), row.getoRG_RDNZC(), row.gethMPG_ADRES(),
                         row.getoRG_TELNO(), row.gethS_SC_NM(), row.getsCHUL_KND_SC_NM())
-                ));
+                )).collect(Collectors.toList());
         return arrayList;
     }
 
