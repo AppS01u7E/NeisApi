@@ -7,18 +7,34 @@ import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ScheResponse {
+    public List<HisTimetable> getHisTimetable() {
+        return hisTimetable;
+    }
+
     public List<HisTimetable> hisTimetable;
     
-    public class HisTimetable{
+    public static class HisTimetable{
+        public List<Head> getHead() {
+            return head;
+        }
+
+        public List<Row> getRow() {
+            return row;
+        }
+
         public List<Head> head;
         public List<Row> row;
       
-        public class Head{
+        public static class Head{
+            public int getList_total_count() {
+                return list_total_count;
+            }
+
             public int list_total_count;
             @JsonProperty("RESULT")
             public RESULT rESULT;
             
-            public class RESULT{
+            public static class RESULT{
                 @JsonProperty("CODE")
                 public String cODE;
                 @JsonProperty("MESSAGE")
@@ -27,7 +43,7 @@ public class ScheResponse {
 
         }
 
-        public class Row{
+        public static class Row{
             @JsonProperty("ATPT_OFCDC_SC_CODE")
             public String aTPT_OFCDC_SC_CODE;
             @JsonProperty("ATPT_OFCDC_SC_NM")
@@ -40,6 +56,11 @@ public class ScheResponse {
             public String aY;
             @JsonProperty("SEM")
             public String sEM;
+
+            public String getaLL_TI_YMD() {
+                return aLL_TI_YMD;
+            }
+
             @JsonProperty("ALL_TI_YMD")
             public String aLL_TI_YMD;
             @JsonProperty("DGHT_CRSE_SC_NM")
@@ -48,14 +69,34 @@ public class ScheResponse {
             public String oRD_SC_NM;
             @JsonProperty("DDDEP_NM")
             public String dDDEP_NM;
+
+            public String getgRADE() {
+                return gRADE;
+            }
+
             @JsonProperty("GRADE")
             public String gRADE;
             @JsonProperty("CLRM_NM")
             public String cLRM_NM;
+
+            public String getcLASS_NM() {
+                return cLASS_NM;
+            }
+
             @JsonProperty("CLASS_NM")
             public String cLASS_NM;
+
+            public String getpERIO() {
+                return pERIO;
+            }
+
             @JsonProperty("PERIO")
             public String pERIO;
+
+            public String getiTRT_CNTNT() {
+                return iTRT_CNTNT;
+            }
+
             @JsonProperty("ITRT_CNTNT")
             public String iTRT_CNTNT;
             @JsonProperty("LOAD_DTM")

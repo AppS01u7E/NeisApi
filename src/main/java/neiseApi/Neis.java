@@ -105,9 +105,9 @@ public class Neis {
         List<SchoolInfoResponse.SchoolInfo.Row> rows = mapper.readValue(url, SchoolInfoResponse.class).getSchoolInfo();
         if (rows.isEmpty()) throw new NullPointerException();
         rows.stream().map(
-                row -> arrayList.add(new SchoolShorten(row.sD_SCHUL_CODE, row.sCHUL_NM, row.aTPT_OFCDC_SC_CODE, row.oRG_RDNZC, row.hMPG_ADRES,
-                        row.oRG_TELNO, row.hS_SC_NM, row.sCHUL_KND_SC_NM)
-                ));
+                row -> arrayList.add(new SchoolShorten(row.getsD_SCHUL_CODE(), row.getsCHUL_NM(), row.getaTPT_OFCDC_SC_CODE(), row.getoRG_RDNZC(), row.gethMPG_ADRES(),
+                        row.getoRG_TELNO(), row.gethS_SC_NM(), row.getsCHUL_KND_SC_NM())
+                )).collect(Collectors.toList());
         return arrayList.get(0);
     }
 
@@ -134,10 +134,10 @@ public class Neis {
         System.out.println(url);
 
         ObjectMapper mapper = new ObjectMapper();
-        List<ScheResponse.HisTimetable> timetable = mapper.readValue(url, ScheResponse.class).hisTimetable;
+        List<ScheResponse.HisTimetable> timetable = mapper.readValue(url, ScheResponse.class).getHisTimetable();
         timetable.get(1).row.stream().map(
-                row -> arrayList.add(new ScheShorten(timetable.get(0).head.get(0).list_total_count,
-                        row.aLL_TI_YMD, row.gRADE, row.cLASS_NM, row.pERIO, row.iTRT_CNTNT))
+                row -> arrayList.add(new ScheShorten(timetable.get(0).getHead().get(0).getList_total_count(),
+                        row.getaLL_TI_YMD(), row.getgRADE(), row.getcLASS_NM(), row.getpERIO(), row.getiTRT_CNTNT()))
         ).collect(Collectors.toList());
 
         return arrayList;
