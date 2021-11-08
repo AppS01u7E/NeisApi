@@ -113,9 +113,7 @@ public class Neis {
 
     /**
      *
-     * @param type ex) 고등학교, 중학교
-     * @param areaCode ex) G10
-     * @param schoolCode 학교 코드
+     * @param schoolShorten ex) 학교 정보
      * @param year ex) 2021
      * @param seperateDay ex) 20210109
      * @param grade ex) 1
@@ -123,14 +121,14 @@ public class Neis {
      * @return sepreateDay 당일 시간표 정보
      */
 
-    public List<ScheShorten> getSchedule(SchoolType type, String areaCode, String schoolCode, Long year, long seperateDay, int grade, int classNum) throws IOException{
+    public List<ScheShorten> getSchedule(SchoolShorten schoolShorten, Long year, long seperateDay, int grade, int classNum) throws IOException{
         ArrayList arrayList = new ArrayList();
         String url;
-        if (type.equals(SchoolType.ELEMENT)) url = this.elementSche;
-        else if (type.equals(SchoolType.MIDDLE)) url = this.middleSche;
+        if (schoolShorten.getKind().equals(SchoolType.ELEMENT)) url = this.elementSche;
+        else if (schoolShorten.getKind().equals(SchoolType.MIDDLE)) url = this.middleSche;
         else url = this.highSche;
 
-        url = url + "&ATPT_OFCDC_SC_CODE=" + Integer.valueOf(areaCode) + "&SD_SCHUL_CODE=" + Integer.valueOf(schoolCode)
+        url = url + "&ATPT_OFCDC_SC_CODE=" + Integer.valueOf(schoolShorten.getAreaCode()) + "&SD_SCHUL_CODE=" + Integer.valueOf(schoolShorten.getCode())
                 + "&AY=" + year + "&ALL_TI_YMD=" +seperateDay + "&GRADE=" + grade + "&CLASS_NM=" +classNum;
 
         System.out.println(url);
@@ -140,10 +138,12 @@ public class Neis {
         timetable.get(1).row.stream().map(
                 row -> arrayList.add(new ScheShorten(timetable.get(0).head.get(0).list_total_count,
                         row.aLL_TI_YMD, row.gRADE, row.cLASS_NM, row.pERIO, row.iTRT_CNTNT))
-        );
+        ).collect(Collectors.toList());
 
         return arrayList;
     }
+
+
 
 
 

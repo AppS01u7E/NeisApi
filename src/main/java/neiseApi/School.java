@@ -14,6 +14,9 @@ import java.util.List;
 
 public class School extends Neis {
 
+
+    private List<SchoolShorten> schoolShortens;
+    private SchoolShorten schoolShorten;
     /**
      * @param serviceKey neisApi 키
      */
@@ -28,7 +31,23 @@ public class School extends Neis {
      */
     public List<SchoolShorten> getSchoolDetailInfo(String schoolName) throws IOException {
         try{
-            return getSchool(schoolName);
+            this.schoolShortens = getSchool(schoolName);
+            return this.schoolShortens;
+        } catch (IOException e){
+            throw new IOException();
+        }
+    }
+
+    /**
+     *
+     * @param schoolName 서치문
+     * @return 리턴시 가장 정확도 높은 SchoolShorten
+     * @throws IOException
+     */
+    public SchoolShorten getFirstSchoolDetailInfo(String schoolName) throws IOException {
+        try{
+            this.schoolShorten = getSchool(schoolName).get(0);
+            return this.schoolShorten;
         } catch (IOException e){
             throw new IOException();
         }
@@ -50,10 +69,32 @@ public class School extends Neis {
         List<List<ScheShorten>> scheduleList = new ArrayList<>(new ArrayList<>());
         SchoolShorten schoolShorten = getOneSchoolByCode(schoolCode);
         for (Long i = startDate; startDate <= endDate; startDate++) {
-            scheduleList.add(getSchedule(schoolShorten.getKind(), schoolShorten.getAreaCode(), schoolShorten.getCode(),
+            scheduleList.add(getSchedule(schoolShorten ,
                     i/10000, i, grade, classNum));
         }
         return scheduleList;
     }
+
+    /**
+     * @param grade 원하는 학년
+     * @param classNum 반
+     * @param startDate 검색 시작일
+     * @param endDate 검색 종료일
+     * @return List of List of ScheShorten
+     * @throws IOException
+     */
+   public List<List<ScheShorten>> getSchoolSchedule(int grade, int classNum , Long startDate, Long endDate) throws IOException{
+        if ((startDate - endDate) > 0) throw new InvaildDateException();
+        List<List<ScheShorten>> scheduleList = new ArrayList<>(new ArrayList<>());
+
+        for (Long i = startDate; startDate <= endDate; startDate++) {
+            scheduleList.add(getSchedule(this.schoolShorten,
+                    i/10000, i, grade, classNum));
+        }
+        return scheduleList;
+    }
+
+
+
 
 }
