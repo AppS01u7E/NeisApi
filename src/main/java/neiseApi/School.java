@@ -2,6 +2,7 @@ package neiseApi;
 
 import neiseApi.exception.InvaildDateException;
 import neiseApi.payload.sche.ScheShorten;
+import neiseApi.payload.sche.ScheShortenDay;
 import neiseApi.payload.sche.SchoolType;
 import neiseApi.payload.schoolInfo.ReturnType;
 import neiseApi.payload.schoolInfo.SchoolInfoResponse;
@@ -83,15 +84,27 @@ public class School extends Neis {
      * @return List of List of ScheShorten
      * @throws IOException
      */
-   public List<List<ScheShorten>> getSchoolSchedule(int grade, int classNum , int startDate, int endDate) throws IOException{
+   public List<ScheShortenDay> getSchoolSchedule(int grade, int classNum , int startDate, int endDate) throws IOException{
         if ((startDate - endDate) > 0) throw new InvaildDateException();
-        List<List<ScheShorten>> scheduleList = new ArrayList<>(new ArrayList<>());
+        List<ScheShortenDay> scheShortenDays = null;
+       ScheShortenDay scheduleList = null;
+       for (int i = startDate; startDate <= endDate; startDate++) {
+           assert scheduleList != null;
+           System.out.println(scheduleList.getScheShortens().get(i));
+           System.out.println(scheduleList.getScheShortens().get(i + 1));
 
-        for (int i = startDate; startDate <= endDate; startDate++) {
-            scheduleList.add(getSchedule(this.schoolShorten,
-                    i/10000, i, grade, classNum));
-        }
-        return scheduleList;
+           getSchedule(this.schoolShorten,
+                   i / 10000, i, grade, classNum).stream().map(
+                   scheShorten -> scheduleList.getScheShortens().add(scheShorten)
+           );
+           scheShortenDays.add(scheduleList);
+
+       }
+       scheShortenDays.get(0).getScheShortens().forEach(
+               System.out::println
+       );
+
+        return scheShortenDays;
     }
 
 

@@ -1,6 +1,7 @@
 package neiseApi.payload.sche;
 
 public class ScheShorten {
+
     private final int totalCount;
     private final int day;
     private final int grade;
