@@ -55,7 +55,7 @@ public class Neis {
      * @param serviceKey 나이스 교육정보 공개포털 apiKey
      *
      */
-    public Neis(String serviceKey) {
+    protected Neis(String serviceKey) {
 
         System.setProperty("jsse.enableSNIExtension", "false");
         this.serviceKey = serviceKey;
@@ -75,7 +75,7 @@ public class Neis {
      * @return List of SchoolShorten
      * @throws NullPointerException it can be caused by serviceKey Error, or just theres no records.
      */
-    public List<SchoolShorten> getSchool(String schoolName) throws IOException{
+    protected List<SchoolShorten> getSchool(String schoolName) throws IOException{
         URL url = new URL(this.schoolInfo + "&SCHUL_NM=" + URLEncoder.encode(schoolName));
         System.out.println(url);
         ArrayList<SchoolShorten> arrayList = new ArrayList<>();
@@ -97,7 +97,7 @@ public class Neis {
      * @return 학교 하나의 정보만 반환함
      */
 
-    public SchoolShorten getOneSchoolByCode(String schoolCode) throws IOException{
+    protected SchoolShorten getOneSchoolByCode(String schoolCode) throws IOException{
         URL url = new URL(this.schoolInfo + "&SD_SCHUL_CODE=" + Integer.valueOf(schoolCode));
         System.out.println(url);
         ArrayList<SchoolShorten> arrayList = new ArrayList<>();
@@ -121,7 +121,7 @@ public class Neis {
      * @return sepreateDay 당일 시간표 정보
      */
 
-    public List<ScheShorten> getSchedule(SchoolShorten schoolShorten, int year, int seperateDay, int grade, int classNum) throws IOException{
+    protected List<ScheShorten> getSchedule(SchoolShorten schoolShorten, int year, int seperateDay, int grade, int classNum) throws IOException{
         ArrayList arrayList = new ArrayList();
         String sche;
         if (schoolShorten.getKind().equals(SchoolType.ELEMENT)) sche = this.elementSche;
