@@ -1,5 +1,7 @@
 package neiseApi;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import neiseApi.payload.sche.ScheResponse;
 import neiseApi.payload.sche.ScheShortenBlock;
@@ -132,6 +134,8 @@ public class Neis {
         System.out.println(url);
 
         ObjectMapper mapper = new ObjectMapper();
+        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+
         List<ScheResponse.HisTimetable> timetable = mapper.readValue(url, ScheResponse.class).getHisTimetable();
         timetable.get(1).row.stream().map(
                 row -> arrayList.add(new ScheShortenBlock(timetable.get(0).getHead().get(0).getList_total_count(),
