@@ -18,6 +18,7 @@ public class ScheReturnResponseDayDto {
         this.day = day;
         this.subjects = subjects;
     }
+    public ScheReturnResponseDayDto(){}
 
     public int getGrade() {
         return grade;

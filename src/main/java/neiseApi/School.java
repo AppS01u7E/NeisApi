@@ -66,15 +66,14 @@ public class School extends Neis {
     public List<ScheReturnResponseDayDto> getSchoolSchedule(String schoolCode, int grade, int classNum , int startDate, int endDate) throws IOException{
         if ((startDate - endDate) > 0) throw new InvaildDateException();
         List<ScheReturnResponseDayDto> scheReturnResponseDayDtos = new ArrayList<>();
-
         int j = 0;
         for (int i = startDate; startDate <= endDate; startDate++, j++) {
             List<ScheShortenBlock> scheShortenBlocks = getSchedule(getOneSchoolByCode(schoolCode), i/10000 , i,
                     grade, classNum);
-            scheReturnResponseDayDtos.get(j).setSubjects(scheShortenBlocks.stream().map(
+            scheReturnResponseDayDtos.add((new ScheReturnResponseDayDto()).setSubjects(scheShortenBlocks.stream().map(
                             scheShortenBlock -> new ScheReturnResponseDayDto.Subject(scheShortenBlock.getSubject(), scheShortenBlock.getPeriod())
-            ).collect(Collectors.toList())).setDay(i).setTotalCount(scheShortenBlocks.size()).setGrade(scheShortenBlocks.get(0).getGrade())
-                    .setClassNum(scheShortenBlocks.get(0).getClassNum());
+                    ).collect(Collectors.toList())).setDay(i).setTotalCount(scheShortenBlocks.size()).setGrade(scheShortenBlocks.get(0).getGrade())
+                    .setClassNum(scheShortenBlocks.get(0).getClassNum()));
         }
 
         return scheReturnResponseDayDtos;
