@@ -1,11 +1,19 @@
 package neiseApi;
 
+
+
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import neiseApi.exception.InvaildDateException;
 import neiseApi.payload.sche.ScheReturnResponseDayDto;
 import neiseApi.payload.sche.ScheShortenBlock;
 import neiseApi.payload.sche.ScheShortenDay;
 import neiseApi.payload.schoolInfo.SchoolShorten;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
+import java.io.DataOutput;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +71,8 @@ public class School extends Neis {
      * @return
      */
 
-    public List<ScheReturnResponseDayDto> getSchoolSchedule(String schoolCode, int grade, int classNum , int startDate, int endDate) throws IOException{
+    public String getSchoolSchedule(String schoolCode, int grade, int classNum , int startDate, int endDate) throws IOException{
+        ObjectMapper mapper = new ObjectMapper();
         if ((startDate - endDate) > 0) throw new InvaildDateException();
         List<ScheReturnResponseDayDto> scheReturnResponseDayDtos = new ArrayList<>();
         int j = 0;
@@ -78,7 +87,7 @@ public class School extends Neis {
 
         }
 
-        return scheReturnResponseDayDtos;
+        return mapper.writeValueAsString(scheReturnResponseDayDtos);
     }
 
 
