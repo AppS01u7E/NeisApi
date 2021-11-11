@@ -1,17 +1,15 @@
 package neiseApi;
 
 import neiseApi.exception.InvaildDateException;
-import neiseApi.payload.sche.ScheShorten;
+import neiseApi.payload.sche.ScheReturnResponseDayDto;
+import neiseApi.payload.sche.ScheShortenBlock;
 import neiseApi.payload.sche.ScheShortenDay;
-import neiseApi.payload.sche.SchoolType;
-import neiseApi.payload.schoolInfo.ReturnType;
-import neiseApi.payload.schoolInfo.SchoolInfoResponse;
 import neiseApi.payload.schoolInfo.SchoolShorten;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class School extends Neis {
 
@@ -65,48 +63,22 @@ public class School extends Neis {
      * @return
      */
 
-    public List<List<ScheShorten>> getSchoolSchedule(String schoolCode, int grade, int classNum , int startDate, int endDate) throws IOException{
+    public List<ScheReturnResponseDayDto> getSchoolSchedule(String schoolCode, int grade, int classNum , int startDate, int endDate) throws IOException{
         if ((startDate - endDate) > 0) throw new InvaildDateException();
-        List<List<ScheShorten>> scheduleList = new ArrayList<>(new ArrayList<>());
-        SchoolShorten schoolShorten = getOneSchoolByCode(schoolCode);
-        for (int i = startDate; startDate <= endDate; startDate++) {
-            scheduleList.add(getSchedule(schoolShorten ,
-                    i/10000, i, grade, classNum));
+        List<ScheReturnResponseDayDto> scheReturnResponseDayDtos = new ArrayList<>();
+
+        int j = 0;
+        for (int i = startDate; startDate <= endDate; startDate++, j++) {
+            List<ScheShortenBlock> scheShortenBlocks = getSchedule(getOneSchoolByCode(schoolCode), i/1000 , i,
+                    grade, classNum);
+            scheReturnResponseDayDtos.get(j).setSubjects(scheShortenBlocks.stream().map(
+                            scheShortenBlock -> new ScheReturnResponseDayDto.Subject(scheShortenBlock.getSubject(), scheShortenBlock.getPeriod())
+            ).collect(Collectors.toList())).setDay(i).setTotalCount(scheShortenBlocks.size()).setGrade(scheShortenBlocks.get(0).getGrade())
+                    .setClassNum(scheShortenBlocks.get(0).getClassNum());
         }
-        return scheduleList;
+
+        return scheReturnResponseDayDtos;
     }
-
-    /**
-     * @param grade 원하는 학년
-     * @param classNum 반
-     * @param startDate 검색 시작일
-     * @param endDate 검색 종료일
-     * @return List of List of ScheShorten
-     * @throws IOException
-     */
-   public List<ScheShortenDay> getSchoolSchedule(int grade, int classNum , int startDate, int endDate) throws IOException{
-        if ((startDate - endDate) > 0) throw new InvaildDateException();
-        List<ScheShortenDay> scheShortenDays = null;
-       ScheShortenDay scheduleList = null;
-       for (int i = startDate; startDate <= endDate; startDate++) {
-           assert scheduleList != null;
-           System.out.println(scheduleList.getScheShortens().get(i));
-           System.out.println(scheduleList.getScheShortens().get(i + 1));
-
-           getSchedule(this.schoolShorten,
-                   i / 10000, i, grade, classNum).stream().map(
-                   scheShorten -> scheduleList.getScheShortens().add(scheShorten)
-           );
-           scheShortenDays.add(scheduleList);
-
-       }
-       scheShortenDays.get(0).getScheShortens().forEach(
-               System.out::println
-       );
-
-        return scheShortenDays;
-    }
-
 
 
 
