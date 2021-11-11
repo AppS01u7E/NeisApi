@@ -2,7 +2,7 @@ package neiseApi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import neiseApi.payload.sche.ScheResponse;
-import neiseApi.payload.sche.ScheShorten;
+import neiseApi.payload.sche.ScheShortenBlock;
 import neiseApi.payload.sche.SchoolType;
 import neiseApi.payload.schoolInfo.SchoolShorten;
 import neiseApi.payload.schoolInfo.SchoolInfoResponse;
@@ -10,7 +10,6 @@ import neiseApi.payload.schoolInfo.SchoolInfoResponse;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -121,7 +120,7 @@ public class Neis {
      * @return sepreateDay 당일 시간표 정보
      */
 
-    protected List<ScheShorten> getSchedule(SchoolShorten schoolShorten, int year, int seperateDay, int grade, int classNum) throws IOException{
+    protected List<ScheShortenBlock> getSchedule(SchoolShorten schoolShorten, int year, int seperateDay, int grade, int classNum) throws IOException{
         ArrayList arrayList = new ArrayList();
         String sche;
         if (schoolShorten.getKind().equals(SchoolType.ELEMENT)) sche = this.elementSche;
@@ -135,7 +134,7 @@ public class Neis {
         ObjectMapper mapper = new ObjectMapper();
         List<ScheResponse.HisTimetable> timetable = mapper.readValue(url, ScheResponse.class).getHisTimetable();
         timetable.get(1).row.stream().map(
-                row -> arrayList.add(new ScheShorten(timetable.get(0).getHead().get(0).getList_total_count(),
+                row -> arrayList.add(new ScheShortenBlock(timetable.get(0).getHead().get(0).getList_total_count(),
                         row.getaLL_TI_YMD(), row.getgRADE(), row.getcLASS_NM(), row.getpERIO(), row.getiTRT_CNTNT()))
         ).collect(Collectors.toList());
 

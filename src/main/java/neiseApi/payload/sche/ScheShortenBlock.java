@@ -1,6 +1,6 @@
 package neiseApi.payload.sche;
 
-public class ScheShorten {
+public class ScheShortenBlock {
 
     private final int totalCount;
     private final int day;
@@ -9,7 +9,7 @@ public class ScheShorten {
     private final int period;
     private final String subject;
 
-    public ScheShorten(int totalCount, int day, int grade, int classNum, int period, String subject) {
+    public ScheShortenBlock(int totalCount, int day, int grade, int classNum, int period, String subject) {
         this.totalCount = totalCount;
         this.day = day;
         this.grade = grade;
@@ -21,6 +21,7 @@ public class ScheShorten {
     public int getTotalCount() {
         return totalCount;
     }
+
 
     public int getDay() {
         return day;
