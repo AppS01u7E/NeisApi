@@ -30,7 +30,11 @@ publishing {
 
             groupId = 'org.jinwoo794533'
             artifactId = 'neiseApi'
+<<<<<<< HEAD
             version = '0.02.14'
+=======
+            version = '0.02.13'
+>>>>>>> main
             from components.java
         }
     }
