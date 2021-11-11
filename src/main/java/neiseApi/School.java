@@ -71,8 +71,8 @@ public class School extends Neis {
      * @return
      */
 
-    public String getSchoolSchedule(String schoolCode, int grade, int classNum , int startDate, int endDate) throws IOException{
-        ObjectMapper mapper = new ObjectMapper();
+    public List<ScheReturnResponseDayDto> getSchoolSchedule(String schoolCode, int grade, int classNum , int startDate, int endDate) throws IOException{
+
         if ((startDate - endDate) > 0) throw new InvaildDateException();
         List<ScheReturnResponseDayDto> scheReturnResponseDayDtos = new ArrayList<>();
         int j = 0;
@@ -87,7 +87,7 @@ public class School extends Neis {
 
         }
 
-        return mapper.writeValueAsString(scheReturnResponseDayDtos);
+        return scheReturnResponseDayDtos;
     }
 
 
