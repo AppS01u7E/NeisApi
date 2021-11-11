@@ -1,10 +1,11 @@
 package neiseApi.payload.sche;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScheReturnResponseDayDto {
+public class ScheReturnResponseDayDto implements Serializable {
 
     private final int grade;
     private final int classNum;
