@@ -80,8 +80,6 @@ public class School extends Neis {
             scheReturnResponseDayDtos.add((new ScheReturnResponseDayDto(scheShortenBlocks.get(0).getGrade(), scheShortenBlocks.get(0).getClassNum(), scheShortenBlocks.size(), scheShortenBlocks.get(0).getDay(), scheShortenBlocks.stream().map(
                     scheShortenBlock -> new ScheReturnResponseDayDto.Subject(scheShortenBlock.getSubject(), scheShortenBlock.getPeriod())
             ).collect(Collectors.toList()))));
-            System.out.println(startDate);
-            System.out.println(j);
 
         }
 

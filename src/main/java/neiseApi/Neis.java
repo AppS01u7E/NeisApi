@@ -3,6 +3,7 @@ package neiseApi;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import neiseApi.exception.TooBigRegioinException;
 import neiseApi.payload.sche.ScheResponse;
 import neiseApi.payload.sche.ScheShortenBlock;
 import neiseApi.payload.sche.SchoolType;
@@ -84,6 +85,7 @@ public class Neis {
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         List<SchoolInfoResponse.SchoolInfo.Row> rows = mapper.readValue(url, SchoolInfoResponse.class).getSchoolInfo();
         if (rows.isEmpty()) throw new NullPointerException();
+        if (rows.size() >= 30) throw new TooBigRegioinException();
         rows.stream().map(
                 row -> arrayList.add(new SchoolShorten(row.getsD_SCHUL_CODE(), row.getsCHUL_NM(), row.getaTPT_OFCDC_SC_CODE(), row.getoRG_RDNZC(), row.gethMPG_ADRES(),
                         row.getoRG_TELNO(), row.gethS_SC_NM(), row.getsCHUL_KND_SC_NM())
