@@ -81,7 +81,7 @@ public class Neis {
         System.out.println(url);
         ArrayList<SchoolShorten> arrayList = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
-
+        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         List<SchoolInfoResponse.SchoolInfo.Row> rows = mapper.readValue(url, SchoolInfoResponse.class).getSchoolInfo();
         if (rows.isEmpty()) throw new NullPointerException();
         rows.stream().map(
@@ -103,6 +103,7 @@ public class Neis {
         System.out.println(url);
         ArrayList<SchoolShorten> arrayList = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
+        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         List<SchoolInfoResponse.SchoolInfo.Row> rows = mapper.readValue(url, SchoolInfoResponse.class).getSchoolInfo();
         if (rows.isEmpty()) throw new NullPointerException();
         rows.stream().map(
