@@ -68,8 +68,10 @@ public class School extends Neis {
         List<ScheReturnResponseDayDto> scheReturnResponseDayDtos = new ArrayList<>();
         int j = 0;
         for (int i = startDate; startDate <= endDate; startDate++, j++) {
+            System.out.println("scheSchortenBlocks 가져오기 전");
             List<ScheShortenBlock> scheShortenBlocks = getSchedule(getOneSchoolByCode(schoolCode), i/10000 , i,
                     grade, classNum);
+            System.out.println("가져온 후");
             scheReturnResponseDayDtos.add((new ScheReturnResponseDayDto(scheShortenBlocks.get(0).getGrade(), scheShortenBlocks.get(0).getClassNum(), scheShortenBlocks.size(), scheShortenBlocks.size(), scheShortenBlocks.stream().map(
                     scheShortenBlock -> new ScheReturnResponseDayDto.Subject(scheShortenBlock.getSubject(), scheShortenBlock.getPeriod())
             ).collect(Collectors.toList()))));

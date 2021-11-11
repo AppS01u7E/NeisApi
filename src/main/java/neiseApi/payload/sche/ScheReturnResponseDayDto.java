@@ -1,6 +1,7 @@
 package neiseApi.payload.sche;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ScheReturnResponseDayDto {
@@ -9,7 +10,19 @@ public class ScheReturnResponseDayDto {
     private int classNum;
     private int totalCount;
     private int day;
-    private List<Subject> subjects;
+    private List<Subject> subjects = new ArrayList<>();
+
+    public static class Subject {
+        private String name;
+        private int period;
+
+        public Subject(String subject, int period) {
+            this.name = subject;
+            this.period = period;
+        }
+
+    }
+
 
     public ScheReturnResponseDayDto(int grade, int classNum, int totalCount, int day, List<Subject> subjects) {
         this.grade = grade;
@@ -18,7 +31,6 @@ public class ScheReturnResponseDayDto {
         this.day = day;
         this.subjects = subjects;
     }
-    public ScheReturnResponseDayDto(){}
 
     public int getGrade() {
         return grade;
@@ -64,19 +76,5 @@ public class ScheReturnResponseDayDto {
         this.subjects = subjects;
         return this;
     }
-
-
-    public static class Subject {
-        private String name;
-        private int period;
-
-        public Subject(String subject, int period) {
-            this.name = subject;
-            this.period = period;
-        }
-
-    }
-
-
 
 }
