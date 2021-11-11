@@ -138,9 +138,6 @@ public class Neis {
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
 
         List<ScheResponse.HisTimetable> timetable = mapper.readValue(url, ScheResponse.class).getHisTimetable();
-
-        System.out.println("맵퍼 리드 밸류 한 바로 직후");
-
         timetable.get(1).row.stream().map(
                 row -> arrayList.add(new ScheShortenBlock(timetable.get(0).getHead().get(0).getList_total_count(),
                         row.getaLL_TI_YMD(), row.getgRADE(), row.getcLASS_NM(), row.getpERIO(), row.getiTRT_CNTNT()))
