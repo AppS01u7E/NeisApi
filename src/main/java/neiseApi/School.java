@@ -10,8 +10,6 @@ import neiseApi.payload.sche.ScheReturnResponseDayDto;
 import neiseApi.payload.sche.ScheShortenBlock;
 import neiseApi.payload.sche.ScheShortenDay;
 import neiseApi.payload.schoolInfo.SchoolShorten;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 
 import java.io.DataOutput;
 import java.io.IOException;

@@ -14,6 +14,14 @@ public class ScheReturnResponseDayDto implements Serializable {
     private List<Subject> subjects = new ArrayList<>();
 
     public static class Subject {
+        public String getName() {
+            return name;
+        }
+
+        public int getPeriod() {
+            return period;
+        }
+
         private final String name;
         private final int period;
 
