@@ -70,10 +70,10 @@ public class School extends Neis {
         for (int i = startDate; startDate <= endDate; startDate++, j++) {
             List<ScheShortenBlock> scheShortenBlocks = getSchedule(getOneSchoolByCode(schoolCode), i/10000 , i,
                     grade, classNum);
-            scheReturnResponseDayDtos.add((new ScheReturnResponseDayDto()).setSubjects(scheShortenBlocks.stream().map(
-                            scheShortenBlock -> new ScheReturnResponseDayDto.Subject(scheShortenBlock.getSubject(), scheShortenBlock.getPeriod())
-                    ).collect(Collectors.toList())).setDay(i).setTotalCount(scheShortenBlocks.size()).setGrade(scheShortenBlocks.get(0).getGrade())
-                    .setClassNum(scheShortenBlocks.get(0).getClassNum()));
+            scheReturnResponseDayDtos.add((new ScheReturnResponseDayDto(scheShortenBlocks.get(0).getGrade(), scheShortenBlocks.get(0).getClassNum(), scheShortenBlocks.size(), scheShortenBlocks.size(), scheShortenBlocks.stream().map(
+                    scheShortenBlock -> new ScheReturnResponseDayDto.Subject(scheShortenBlock.getSubject(), scheShortenBlock.getPeriod())
+            ).collect(Collectors.toList()))));
+            System.out.println(scheReturnResponseDayDtos.get(0).getDay());
         }
 
         return scheReturnResponseDayDtos;
