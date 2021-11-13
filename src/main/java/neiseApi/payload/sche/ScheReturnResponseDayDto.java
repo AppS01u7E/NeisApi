@@ -45,19 +45,19 @@ public class ScheReturnResponseDayDto implements Serializable {
     }
 
     public int getGrade() {
-        return grade;
+        return this.grade;
     }
 
     public int getClassNum() {
-        return classNum;
+        return this.classNum;
     }
 
     public int getTotalCount() {
-        return totalCount;
+        return this.totalCount;
     }
 
     public int getDay() {
-        return day;
+        return this.day;
     }
 
     public List<Subject> getSubjects() {
