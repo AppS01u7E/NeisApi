@@ -116,8 +116,6 @@ public class Neis {
     }
 
     /**
-     *
-     * @param schoolShorten ex) 학교 정보
      * @param year ex) 2021
      * @param seperateDay ex) 20210109
      * @param grade ex) 1
@@ -126,7 +124,7 @@ public class Neis {
      */
 
     protected List<ScheShortenBlock> getSchedule(SchoolType type, String areaCode, String schoolCOde, int year, int seperateDay, int grade, int classNum) throws IOException{
-        ArrayList arrayList = new ArrayList();
+        List<ScheShortenBlock> arrayList = new ArrayList();
         String sche;
         if (type.equals(SchoolType.ELEMENT)) sche = this.elementSche;
         else if (type.equals(SchoolType.MIDDLE)) sche = this.middleSche;
@@ -147,7 +145,10 @@ public class Neis {
 
             return arrayList;
         } catch (IOException e){
-            return null;
+            for (int i = 1; i <= 4;i++) {
+                arrayList.add(new ScheShortenBlock(4, seperateDay, grade, classNum, i, "휴일"));
+            }
+            return arrayList;
         }
     }
 
