@@ -11,9 +11,5 @@ repositories {
     
     maven { url 'https://jitpack.io' }
 }
-
-dependencis{
-
-  implementation 'com.github.AppS01u7E:NeisApi:0.01.04'
-  
-}
+**```
+후 implementation
