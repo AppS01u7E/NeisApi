@@ -140,13 +140,15 @@ public class Neis {
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
 
         List<ScheResponse.HisTimetable> timetable = mapper.readValue(url, ScheResponse.class).getHisTimetable();
-        timetable.get(1).row.stream().map(
+        if (timetable.get(0).getHead().get(1).getrESULT().mESSAGE.equals("해당하는 데이터가 없습니다.")) throw new NullPointerException();
+        timetable.get(1).getRow().stream().map(
                 row -> arrayList.add(new ScheShortenBlock(timetable.get(0).getHead().get(0).getList_total_count(),
                         row.getaLL_TI_YMD(), row.getgRADE(), row.getcLASS_NM(), row.getpERIO(), row.getiTRT_CNTNT()))
         ).collect(Collectors.toList());
 
         return arrayList;
     }
+
 
 
 }
