@@ -5,6 +5,7 @@
 ## 사용법
 build.gradle에 
 
+
 ```**
 repositories {
     ...
@@ -14,6 +15,6 @@ repositories {
 
 dependencis{
 
-  implementation 'com.github.AppS01u7E:NeisApi:0.01.04'
+  implementation 'com.github.AppS01u7E:NeisApi:{version}'
   
 }
