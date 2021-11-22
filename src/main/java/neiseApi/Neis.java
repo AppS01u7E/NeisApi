@@ -125,14 +125,14 @@ public class Neis {
      * @return sepreateDay 당일 시간표 정보
      */
 
-    protected List<ScheShortenBlock> getSchedule(SchoolShorten schoolShorten, int year, int seperateDay, int grade, int classNum) throws IOException{
+    protected List<ScheShortenBlock> getSchedule(SchoolType type, String areaCode, String schoolCOde, int year, int seperateDay, int grade, int classNum) throws IOException{
         ArrayList arrayList = new ArrayList();
         String sche;
-        if (schoolShorten.getKind().equals(SchoolType.ELEMENT)) sche = this.elementSche;
-        else if (schoolShorten.getKind().equals(SchoolType.MIDDLE)) sche = this.middleSche;
+        if (type.equals(SchoolType.ELEMENT)) sche = this.elementSche;
+        else if (type.equals(SchoolType.MIDDLE)) sche = this.middleSche;
         else sche = this.highSche;
 
-        URL url = new URL(sche + "&ATPT_OFCDC_SC_CODE=" + (schoolShorten.getAreaCode()) + "&SD_SCHUL_CODE=" + Integer.valueOf(schoolShorten.getCode())
+        URL url = new URL(sche + "&ATPT_OFCDC_SC_CODE=" + (areaCode) + "&SD_SCHUL_CODE=" + Integer.valueOf(schoolCOde)
                 + "&AY=" + year + "&ALL_TI_YMD=" +seperateDay + "&GRADE=" + grade + "&CLASS_NM=" +classNum);
         System.out.println(url);
 
