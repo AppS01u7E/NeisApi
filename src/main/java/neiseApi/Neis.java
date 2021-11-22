@@ -79,7 +79,7 @@ public class Neis {
      */
     protected List<SchoolShorten> getSchool(String schoolName) throws IOException{
         URL url = new URL(this.schoolInfo + "&SCHUL_NM=" + URLEncoder.encode(schoolName));
-        System.out.println(url);
+
         ArrayList<SchoolShorten> arrayList = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -102,7 +102,7 @@ public class Neis {
 
     protected SchoolShorten getOneSchoolByCode(String schoolCode) throws IOException{
         URL url = new URL(this.schoolInfo + "&SD_SCHUL_CODE=" + Integer.valueOf(schoolCode));
-        System.out.println(url);
+
         ArrayList<SchoolShorten> arrayList = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -132,16 +132,19 @@ public class Neis {
 
         URL url = new URL(sche + "&ATPT_OFCDC_SC_CODE=" + (areaCode) + "&SD_SCHUL_CODE=" + Integer.valueOf(schoolCOde)
                 + "&AY=" + year + "&ALL_TI_YMD=" +seperateDay + "&GRADE=" + grade + "&CLASS_NM=" +classNum);
-        System.out.println(url);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         try{
             List<ScheResponse.HisTimetable> timetable = mapper.readValue(url, ScheResponse.class).getHisTimetable();
-            timetable.get(1).getRow().stream().map(
-                    row -> arrayList.add(new ScheShortenBlock(timetable.get(0).getHead().get(0).getList_total_count(),
-                            row.getaLL_TI_YMD(), row.getgRADE(), row.getcLASS_NM(), row.getpERIO(), row.getiTRT_CNTNT()))
-            ).collect(Collectors.toList());
+
+            for (ScheResponse.HisTimetable.Row row: timetable.get(1).getRow()){
+                int i = 1;
+
+                arrayList.add(new ScheShortenBlock(10,
+                        row.getaLL_TI_YMD(), row.getgRADE(), row.getcLASS_NM(), i += 1,
+                        row.getiTRT_CNTNT().isEmpty()?"자습": row.getiTRT_CNTNT()));
+            }
 
             return arrayList;
         } catch (IOException e){
