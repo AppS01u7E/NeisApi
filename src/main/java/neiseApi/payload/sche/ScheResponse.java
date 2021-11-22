@@ -31,6 +31,11 @@ public class ScheResponse {
             }
 
             public int list_total_count;
+
+            public RESULT getrESULT() {
+                return rESULT;
+            }
+
             @JsonProperty("RESULT")
             public RESULT rESULT;
             

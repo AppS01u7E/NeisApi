@@ -30,6 +30,11 @@ public class SchoolInfoResponse {
             public static class RESULT{
                 @JsonProperty("CODE")
                 public String cODE;
+
+                public String getmESSAGE() {
+                    return mESSAGE;
+                }
+
                 @JsonProperty("MESSAGE")
                 public String mESSAGE;
             }
