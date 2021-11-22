@@ -5,11 +5,16 @@
 ## 사용법
 build.gradle에 
 
+
 ```**
 repositories {
     ...
     
     maven { url 'https://jitpack.io' }
 }
-**```
-후 implementation
+
+dependencis{
+
+  implementation 'com.github.AppS01u7E:NeisApi:{version}'
+  
+}
