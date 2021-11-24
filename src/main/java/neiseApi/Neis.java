@@ -146,7 +146,7 @@ public class Neis {
                     arrayList.add(new ScheShortenBlock(10,
                             row.getaLL_TI_YMD(), row.getgRADE(), row.getcLASS_NM(), i,
                             row.getiTRT_CNTNT().isEmpty() ? "자습" : row.getiTRT_CNTNT()));
-                } catch (NullPointerException e){
+                } catch (IndexOutOfBoundsException e){
                     arrayList.add(new ScheShortenBlock(10,
                             year, grade, classNum, i,
                             "자습"));
