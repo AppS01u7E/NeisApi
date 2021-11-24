@@ -13,8 +13,14 @@ import neiseApi.payload.schoolInfo.SchoolInfoResponse;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 
@@ -50,6 +56,7 @@ public class Neis {
     private String classInfo;
     private String serviceKey;
     private String academicCalander;
+    private final DateTimeFormatter intDateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
 
     /**
@@ -138,15 +145,21 @@ public class Neis {
         try{
             List<ScheResponse.HisTimetable> timetable = mapper.readValue(url, ScheResponse.class).getHisTimetable();
 
+
             for (int i = 1; i < 10; i++){
+                ScheResponse.HisTimetable.Row row = timetable.get(1).getRow().get(i-1);
+                if ((LocalDate.parse(String.valueOf(seperateDay), intDateTimeFormatter)).getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN).equals("토")){
 
-
+                    arrayList.add(new ScheShortenBlock(timetable.get(0).getHead().get(0).getList_total_count(), row.getaLL_TI_YMD(), row.getgRADE(), row.getcLASS_NM(), i,
+                            row.getiTRT_CNTNT()));
+                } else
                 try {
-                    ScheResponse.HisTimetable.Row row = timetable.get(1).getRow().get(i);
+
                     arrayList.add(new ScheShortenBlock(10,
                             row.getaLL_TI_YMD(), row.getgRADE(), row.getcLASS_NM(), i,
-                            row.getiTRT_CNTNT().isEmpty() ? "자습" : row.getiTRT_CNTNT()));
+                            row.getiTRT_CNTNT()));
                 } catch (IndexOutOfBoundsException e){
+
                     arrayList.add(new ScheShortenBlock(10,
                             year, grade, classNum, i,
                             "자습"));
