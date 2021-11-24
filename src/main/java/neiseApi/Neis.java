@@ -147,9 +147,10 @@ public class Neis {
 
 
             for (int i = 1; i < 10; i++){
-                ScheResponse.HisTimetable.Row row = timetable.get(1).getRow().get(i-1);
+
                 if ((LocalDate.parse(String.valueOf(seperateDay), intDateTimeFormatter)).getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN).equals("토")){
                     try {
+                        ScheResponse.HisTimetable.Row row = timetable.get(1).getRow().get(i-1);
                         arrayList.add(new ScheShortenBlock(timetable.get(0).getHead().get(0).getList_total_count(), row.getaLL_TI_YMD(), row.getgRADE(), row.getcLASS_NM(), i,
                                 row.getiTRT_CNTNT()));
                     } catch (IndexOutOfBoundsException e){
@@ -157,7 +158,7 @@ public class Neis {
                     }
                 } else {
                     try {
-
+                        ScheResponse.HisTimetable.Row row = timetable.get(1).getRow().get(i-1);
                         arrayList.add(new ScheShortenBlock(10,
                                 row.getaLL_TI_YMD(), row.getgRADE(), row.getcLASS_NM(), i,
                                 row.getiTRT_CNTNT()));
