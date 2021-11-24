@@ -138,14 +138,16 @@ public class Neis {
         try{
             List<ScheResponse.HisTimetable> timetable = mapper.readValue(url, ScheResponse.class).getHisTimetable();
 
-            for (int i = 0; i <= 9; i++){
-                int j = i;
+            for (int i = 0; i < 10; i++){
+
                 ScheResponse.HisTimetable.Row row = timetable.get(1).getRow().get(i);
                 try {
+                    int j = i;
                     arrayList.add(new ScheShortenBlock(10,
                             row.getaLL_TI_YMD(), row.getgRADE(), row.getcLASS_NM(), j += 1,
                             row.getiTRT_CNTNT().isEmpty() ? "자습" : row.getiTRT_CNTNT()));
                 } catch (NullPointerException e){
+                    int j = i;
                     arrayList.add(new ScheShortenBlock(10,
                             row.getaLL_TI_YMD(), row.getgRADE(), row.getcLASS_NM(), j += 1,
                             "자습"));
