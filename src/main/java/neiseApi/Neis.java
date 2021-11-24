@@ -140,10 +140,15 @@ public class Neis {
 
             for (int i = 0; i <= 9; i++){
                 ScheResponse.HisTimetable.Row row = timetable.get(1).getRow().get(i);
-
-                arrayList.add(new ScheShortenBlock(10,
-                        row.getaLL_TI_YMD(), row.getgRADE(), row.getcLASS_NM(), i += 1,
-                        row.getiTRT_CNTNT().isEmpty()?"자습": row.getiTRT_CNTNT()));
+                try {
+                    arrayList.add(new ScheShortenBlock(10,
+                            row.getaLL_TI_YMD(), row.getgRADE(), row.getcLASS_NM(), i += 1,
+                            row.getiTRT_CNTNT().isEmpty() ? "자습" : row.getiTRT_CNTNT()));
+                } catch (NullPointerException e){
+                    arrayList.add(new ScheShortenBlock(10,
+                            row.getaLL_TI_YMD(), row.getgRADE(), row.getcLASS_NM(), i += 1,
+                            "자습"));
+                }
             }
 
             return arrayList;
