@@ -138,8 +138,8 @@ public class Neis {
         try{
             List<ScheResponse.HisTimetable> timetable = mapper.readValue(url, ScheResponse.class).getHisTimetable();
 
-            for (ScheResponse.HisTimetable.Row row: timetable.get(1).getRow()){
-                int i = 1;
+            for (int i = 0; i <= 9; i++){
+                ScheResponse.HisTimetable.Row row = timetable.get(1).getRow().get(i);
 
                 arrayList.add(new ScheShortenBlock(10,
                         row.getaLL_TI_YMD(), row.getgRADE(), row.getcLASS_NM(), i += 1,
