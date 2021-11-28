@@ -13,7 +13,9 @@ import neiseApi.payload.schoolInfo.SchoolShorten;
 
 import java.io.DataOutput;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -75,7 +77,22 @@ public class School extends Neis {
         List<ScheReturnResponseDayDto> scheReturnResponseDayDtos = new ArrayList<>();
         int j = 0;
         SchoolShorten schoolShorten = getOneSchoolByCode(schoolCode);
+
+        Calendar cal = Calendar.getInstance();
+
+        int year = ((startDate%10000000)/10000);
+        int month = (startDate%10000)/100;
+
+        cal.set(year, month-1, 1);
+        LocalDate last = LocalDate.of(year, month, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+        int l = last.getDayOfMonth();
+        
         for (int i = startDate; startDate <= endDate; startDate++, j++) {
+            int s = startDate;
+            if (l < s%100) {
+                if ((month + 100) == 1300) startDate = year + 101;
+                else startDate = year + month + 101;
+            }
             List<ScheShortenBlock> scheShortenBlocks = getSchedule( schoolShorten.getKind(), schoolShorten.getAreaCode(), schoolCode, i/10000 , startDate,
                     grade, classNum);
             scheReturnResponseDayDtos.add((new ScheReturnResponseDayDto(scheShortenBlocks.get(0).getGrade(), scheShortenBlocks.get(0).getClassNum(), scheShortenBlocks.size(), scheShortenBlocks.get(0).getDay(), scheShortenBlocks.stream().map(
