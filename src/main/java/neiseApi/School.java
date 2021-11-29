@@ -90,8 +90,8 @@ public class School extends Neis {
         for (int i = startDate; startDate <= endDate; startDate++, j++) {
             int s = startDate;
             if (l < s%100) {
-                if ((month + 1) == 13) j = 20000000 + year*10000 + 101;
-                else j = 20000000 + year*10000 + month*100 + 101;
+                if ((month + 1) == 13) startDate = 20000000 + year*10000 + 101;
+                else startDate = 20000000 + year*10000 + month*100 + 101;
             }
             List<ScheShortenBlock> scheShortenBlocks = getSchedule( schoolShorten.getKind(), schoolShorten.getAreaCode(), schoolCode, i/10000 , startDate,
                     grade, classNum);
