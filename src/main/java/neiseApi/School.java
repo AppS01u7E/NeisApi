@@ -88,7 +88,7 @@ public class School extends Neis {
         int l = last.getDayOfMonth();
 
         for (int i = startDate; startDate <= endDate; startDate++, j++) {
-            int s = j;
+            int s = startDate;
             if (l < s%100) {
                 if ((month + 1) == 13) j = year*10000 + 101;
                 else j = year*10000 + month*100 + 101;
