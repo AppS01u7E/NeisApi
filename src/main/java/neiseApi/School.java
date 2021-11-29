@@ -86,12 +86,12 @@ public class School extends Neis {
         cal.set(year, month-1, 1);
         LocalDate last = LocalDate.of(year, month, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
         int l = last.getDayOfMonth();
-        
+
         for (int i = startDate; startDate <= endDate; startDate++, j++) {
-            int s = startDate;
+            int s = j;
             if (l < s%100) {
-                if ((month + 100) == 1300) startDate = year + 101;
-                else startDate = year + month + 101;
+                if ((month + 1) == 13) j = year*10000 + 101;
+                else j = year*10000 + month*100 + 101;
             }
             List<ScheShortenBlock> scheShortenBlocks = getSchedule( schoolShorten.getKind(), schoolShorten.getAreaCode(), schoolCode, i/10000 , startDate,
                     grade, classNum);
