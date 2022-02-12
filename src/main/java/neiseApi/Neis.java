@@ -146,7 +146,7 @@ public class Neis {
             List<ScheResponse.HisTimetable> timetable = mapper.readValue(url, ScheResponse.class).getHisTimetable();
 
 
-            for (int i = 1; i <= 10; i++){
+            for (int i = 1; i <= 11; i++){
 
                 if ((LocalDate.parse(String.valueOf(seperateDay), intDateTimeFormatter)).getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN).equals("토")){
                     try {
